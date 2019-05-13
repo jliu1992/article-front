@@ -24,10 +24,10 @@
             </div>
           </div>
           <el-button
-            type="primary"
-            icon="el-icon-star-off"
+            type="danger"
+            icon="el-icon-delete"
             circle
-            @click="onCollect(article)"
+            @click="onDelete(article)"
           ></el-button>
         </div>
       </el-card>
@@ -35,58 +35,33 @@
   </el-row>
 </template>
 
-<style lang="scss">
-.article-item-top {
-  display: flex;
-  height: 236px;
-  & > img {
-    width: 236px;
-  }
-  p {
-    flex: 1;
-    margin: 0;
-    padding: 10px;
-    line-height: 25px;
-    overflow: hidden;
-  }
-}
-.article-item-bottom {
-  display: flex;
-  padding-right: 10px;
-  justify-content: space-between;
-  align-items: center;
-}
-.time {
-  font-size: 13px;
-  color: #999;
-}
-</style>
-
 <script>
 import axios from "axios";
 import router from "../router";
 
 export default {
-  name: "home",
+  name: "mine",
   data() {
     return {
       articles: []
     };
   },
   created() {
-    axios.get("/article").then(data => {
+    axios.get("/article/myarticles").then(data => {
       this.articles = data;
     });
   },
   methods: {
-    onCollect(article) {
+    onDelete(article) {
       const { _id } = article;
-      const params = { _articleid: _id };
       axios
-        .post("/collection", params)
+        .delete(`/article/${_id}`)
         .then(() => {
+          axios.get("/article/myarticles").then(data => {
+            this.articles = data;
+          });
           this.$message({
-            message: "收藏成功",
+            message: "删除成功",
             type: "success"
           });
         })

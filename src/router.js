@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import App from "./views/App.vue";
 import Home from "./views/Home.vue";
 
 Vue.use(Router);
@@ -10,17 +11,51 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "app",
+      component: App,
+      children: [
+        {
+          path: "/",
+          name: "home",
+          component: Home
+        },
+        {
+          path: "/mine",
+          name: "mine",
+          component: () =>
+            import(/* webpackChunkName: "mine" */ "./views/MyArticle.vue")
+        },
+        {
+          path: "/colletion",
+          name: "colletion",
+          component: () =>
+            import(/* webpackChunkName: "colletion" */ "./views/Colletion.vue")
+        },
+        {
+          path: "/setting",
+          name: "setting",
+          component: () =>
+            import(/* webpackChunkName: "setting" */ "./views/Setting.vue")
+        },
+        {
+          path: "/new",
+          name: "new",
+          component: () =>
+            import(/* webpackChunkName: "new" */ "./views/NewArticle.vue")
+        },
+        {
+          path: "/article/:id",
+          name: "article",
+          component: () =>
+            import(/* webpackChunkName: "article" */ "./views/Detail.vue")
+        }
+      ]
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/login",
+      name: "login",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "login" */ "./views/Login.vue")
     }
   ]
 });
