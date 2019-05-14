@@ -36,18 +36,18 @@
 </template>
 
 <script>
-import axios from "axios";
-import router from "../router";
+import axios from 'axios';
+import router from '../router';
 
 export default {
-  name: "collection",
+  name: 'collection',
   data() {
     return {
       collections: []
     };
   },
   created() {
-    axios.get("/collection").then(data => {
+    axios.get('/collection').then(data => {
       this.collections = data;
     });
   },
@@ -58,10 +58,10 @@ export default {
         .delete(`/collection/${_id}`)
         .then(() => {
           this.$message({
-            message: "取消收藏成功",
-            type: "success"
+            message: '取消收藏成功',
+            type: 'success'
           });
-          axios.get("/collection").then(data => {
+          axios.get('/collection').then(data => {
             this.collections = data;
           });
         })

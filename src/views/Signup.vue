@@ -1,6 +1,7 @@
 <template>
-  <div class="setting">
-    <h2>Setting</h2>
+  <div class="login">
+    <h1>Articles</h1>
+    <h2>Sign up</h2>
     <el-form
       :model="form"
       :rules="rules"
@@ -11,14 +12,7 @@
       <el-form-item label=" 用 户 名" prop="id">
         <el-input v-model="form.id"></el-input>
       </el-form-item>
-      <el-form-item label="原 密 码" prop="oldpass">
-        <el-input
-          type="password"
-          v-model="form.oldpass"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="新 密 码" prop="pass">
+      <el-form-item label="登陆密码" prop="pass">
         <el-input
           type="password"
           v-model="form.pass"
@@ -33,7 +27,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('form')">修改</el-button>
+        <el-button type="primary" @click="submitForm('form')">注册</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -70,13 +64,14 @@ export default {
     return {
       form: {
         id: '',
-        oldpass: '',
         pass: '',
         repeatpass: ''
       },
       rules: {
-        id: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        oldpass: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
+        id: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+          // { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        ],
         pass: [{ validator: validatePass, trigger: 'blur' }],
         repeatpass: [{ validator: validatePass2, trigger: 'blur' }]
       }
@@ -116,9 +111,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.setting {
+.login {
   width: 500px;
-  margin-left: 20px;
+  margin: 0 auto;
   padding-top: 20px;
   text-align: center;
 }

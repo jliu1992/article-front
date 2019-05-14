@@ -1,61 +1,73 @@
-import Vue from "vue";
-import Router from "vue-router";
-import App from "./views/App.vue";
-import Home from "./views/Home.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import App from './views/App.vue';
+import Home from './views/Home.vue';
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "app",
+      path: '/',
+      name: 'app',
       component: App,
       children: [
         {
-          path: "/",
-          name: "home",
+          path: '/',
+          name: 'home',
           component: Home
         },
         {
-          path: "/mine",
-          name: "mine",
+          path: '/mine',
+          name: 'mine',
           component: () =>
-            import(/* webpackChunkName: "mine" */ "./views/MyArticle.vue")
+            import(/* webpackChunkName: "mine" */ './views/MyArticle.vue')
         },
         {
-          path: "/colletion",
-          name: "colletion",
+          path: '/colletion',
+          name: 'colletion',
           component: () =>
-            import(/* webpackChunkName: "colletion" */ "./views/Colletion.vue")
+            import(/* webpackChunkName: "colletion" */ './views/Colletion.vue')
         },
         {
-          path: "/setting",
-          name: "setting",
+          path: '/setting',
+          name: 'setting',
           component: () =>
-            import(/* webpackChunkName: "setting" */ "./views/Setting.vue")
+            import(/* webpackChunkName: "setting" */ './views/Setting.vue')
         },
         {
-          path: "/new",
-          name: "new",
+          path: '/new',
+          name: 'new',
           component: () =>
-            import(/* webpackChunkName: "new" */ "./views/NewArticle.vue")
+            import(/* webpackChunkName: "new" */ './views/NewArticle.vue')
         },
         {
-          path: "/article/:id",
-          name: "article",
+          path: '/edit/:id',
+          name: 'edit',
           component: () =>
-            import(/* webpackChunkName: "article" */ "./views/Detail.vue")
+            import(/* webpackChunkName: "edit" */ './views/Edit.vue')
+        },
+        {
+          path: '/article/:id',
+          name: 'article',
+          component: () =>
+            import(/* webpackChunkName: "article" */ './views/Detail.vue')
         }
       ]
     },
     {
-      path: "/login",
-      name: "login",
+      path: '/login',
+      name: 'login',
       component: () =>
-        import(/* webpackChunkName: "login" */ "./views/Login.vue")
+        import(/* webpackChunkName: "login" */ './views/Login.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () =>
+        import(/* webpackChunkName: "signup" */ './views/Signup.vue')
     }
   ]
 });

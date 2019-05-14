@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <h1>Articles</h1>
+    <h2>Login</h2>
     <el-form
       :model="form"
       :rules="rules"
@@ -8,10 +9,10 @@
       label-width="100px"
       class="demo-form"
     >
-      <el-form-item label="用户名" prop="id">
+      <el-form-item label=" 用 户 名" prop="id">
         <el-input v-model="form.id"></el-input>
       </el-form-item>
-      <el-form-item label="密 码" prop="pass">
+      <el-form-item label="登陆密码" prop="pass">
         <el-input
           type="password"
           v-model="form.pass"
@@ -27,25 +28,25 @@
 </template>
 
 <script>
-import axios from "axios";
-import store from "store";
+import axios from 'axios';
+import store from 'store';
 
-import router from "../router";
+import router from '../router';
 
 export default {
   data() {
     return {
       form: {
-        id: "",
-        pass: ""
+        id: '',
+        pass: ''
       },
       rules: {
         id: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
           // { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         pass: [
-          { required: true, message: "请输入登陆密码", trigger: "blur" }
+          { required: true, message: '请输入登陆密码', trigger: 'blur' }
           // { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ]
       }
@@ -57,22 +58,22 @@ export default {
         if (valid) {
           const { id, pass } = this.form;
           axios
-            .post("/user/login", { id, pass })
+            .post('/user/login', { id, pass })
             .then(data => {
               const userId = data.id;
-              store.set("userId", userId);
+              store.set('userId', userId);
               axios.defaults.headers.userid = userId;
               this.$message({
-                message: "登陆成功",
-                type: "success"
+                message: '登陆成功',
+                type: 'success'
               });
-              router.push("/");
+              router.push('/');
             })
             .catch(err => {
               console.error(err);
             });
         } else {
-          console.log("error submit!!");
+          console.log('error submit!!');
           return false;
         }
       });

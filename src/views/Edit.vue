@@ -48,7 +48,7 @@ import axios from 'axios';
 import router from '../router';
 
 export default {
-  name: 'new',
+  name: 'edit',
   data() {
     return {
       form: {
@@ -59,6 +59,12 @@ export default {
         imageUrl: ''
       }
     };
+  },
+  mounted() {
+    const id = this.$route.params.id;
+    axios.get(`/article/${id}`).then(data => {
+      this.form = data;
+    });
   },
   methods: {
     handleAvatarSuccess(res) {
@@ -73,13 +79,14 @@ export default {
       return isLt2M;
     },
     onSubmit() {
+      const id = this.$route.params.id;
       const { title, type, imageUrl, secret, content } = this.form;
       const params = { title, type, imageUrl, secret, content };
       axios
-        .post('/article', params)
+        .put(`/article/${id}`, params)
         .then(() => {
           this.$message({
-            message: '发布成功',
+            message: '修改成功',
             type: 'success'
           });
           router.push('/');
@@ -91,29 +98,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>

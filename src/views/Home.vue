@@ -18,9 +18,9 @@
           <div style="padding: 14px;" @click="onView(article)">
             <span>{{ article.title }}</span>
             <div class="bottom clearfix">
-              <time class="time">{{
-                new Date(article._createtime).toLocaleString()
-              }}</time>
+              <time class="time">
+                {{ new Date(article._createtime).toLocaleString() }}
+              </time>
             </div>
           </div>
           <el-button
@@ -63,18 +63,18 @@
 </style>
 
 <script>
-import axios from "axios";
-import router from "../router";
+import axios from 'axios';
+import router from '../router';
 
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
       articles: []
     };
   },
   created() {
-    axios.get("/article").then(data => {
+    axios.get('/article').then(data => {
       this.articles = data;
     });
   },
@@ -83,11 +83,11 @@ export default {
       const { _id } = article;
       const params = { _articleid: _id };
       axios
-        .post("/collection", params)
+        .post('/collection', params)
         .then(() => {
           this.$message({
-            message: "收藏成功",
-            type: "success"
+            message: '收藏成功',
+            type: 'success'
           });
         })
         .catch(err => {
